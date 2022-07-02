@@ -6,16 +6,18 @@ function Main(props) {
   const [userName, setUserName] = useState('');
   const [userDescription, setUserDescription] = useState('');
   const [userAvatar, setUserAvatar] = useState('');
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    api.getUserInfo()
-      .then((res) => {
-        setUserAvatar(res.avatar);
-        setUserName(res.name);
-        setUserDescription(res.about);
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
+      .then(([userData, cardsData]) => {
+        setUserAvatar(userData.avatar);
+        setUserName(userData.name);
+        setUserDescription(userData.about);
+        setCards(cardsData);
       })
       .catch((err) => console.log(err));
-  });
+  }, []);
 
   return (
     <main className="content">
@@ -34,6 +36,19 @@ function Main(props) {
       </section>
       <section className="cards">
         <ul className="cards__list">
+          {cards.map((card) => (
+              <li className="card" key={card._id}>
+                <img className="card__image" src={card.link} alt="загруженное фото" />
+                <div className="card__info">
+                  <h2 className="card__caption">{card.name}</h2>
+                  <div className="card__like-wrapper">
+                    <button className="card__like-btn" type="button" aria-label="мне нравится"></button>
+                    <p className="card__like-counter">{card.likes.length}</p>
+                  </div>
+                </div>
+                <button className="card__delete-btn" type="button" aria-label="удалить"></button>
+              </li>
+          ))}
         </ul>
       </section>
     </main>
