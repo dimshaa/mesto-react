@@ -3,13 +3,45 @@ import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
+import { useState } from 'react';
 
 function App() {
+
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+
+  function closeAllPopups() {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+  }
+
   return (
     <div className="page">
       <Header />
-      <Main />
+
+      <Main 
+        onEditAvatar={handleEditAvatarClick}
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+      />
+
       <Footer />
+
       <PopupWithForm 
         name="avatar-edit"
         title="Обновить аватар"
@@ -26,7 +58,10 @@ function App() {
             <span className="popup__input-error" id="avatar-url-input-error"></span>
           </>
         }
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
       />
+
       <PopupWithForm
         name="profile-edit"
         title="Редактировать профиль"
@@ -54,7 +89,10 @@ function App() {
             <span className="popup__input-error" id="userbio-input-error"></span>
           </>
         }
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
       />
+      
       <PopupWithForm 
         name="card-add"
         title="Новое место"
@@ -80,11 +118,15 @@ function App() {
             <span className="popup__input-error" id="card-url-input-error"></span>
           </>
         }
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
       />
+
       <PopupWithForm 
         name="confirm"
         title="Вы уверены?"
       />
+
       <ImagePopup />
     </div>
   );
