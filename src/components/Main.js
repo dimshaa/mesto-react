@@ -41,6 +41,7 @@ function Main(props) {
               <Card 
                 key= {card._id}
                 cardData={card}
+                onCardClick={props.onCardClick}
               />
           ))}
         </ul>
