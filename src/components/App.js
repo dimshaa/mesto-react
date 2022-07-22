@@ -17,11 +17,11 @@ function App() {
 
   useEffect(() => {
     api.getUserInfo()
-    .then(res => {
+      .then(res => {
       setCurrentUser(res);
     })
-    .catch(err => console.log(err))
-  });
+      .catch(err => console.log(err))
+  }, []);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
