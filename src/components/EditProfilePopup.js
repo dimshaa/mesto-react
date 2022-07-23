@@ -20,10 +20,20 @@ function EditProfilePopup(props) {
     setDescription(e.target.value);
   };
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    props.onUpdateUser({
+      name,
+      about: description,
+    });
+  }
+
   return (
     <PopupWithForm
       name="profile-edit"
       title="Редактировать профиль"
+      onSubmit={handleSubmit}
       children={
         <>
           <input
