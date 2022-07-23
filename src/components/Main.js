@@ -28,6 +28,14 @@ function Main(props) {
       .catch(err => console.log(err));
   };
 
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+    .then(() => {
+      setCards((state) => state.filter((c) => c._id !== card._id));
+    })
+    .catch(err => console.log(err));
+  };
+
   return (
     <main className="content">
       <section className="profile">
@@ -51,6 +59,7 @@ function Main(props) {
                 cardData={card}
                 onCardClick={props.onCardClick}
                 onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
               />
           ))}
         </ul>
