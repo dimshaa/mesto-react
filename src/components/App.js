@@ -6,6 +6,7 @@ import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import CurrentUserContext from '../contexts/CurrentUserContext.js';
 import api from '../utils/Api.js';
+import EditProfilePopup from './EditProfilePopup.js';
 
 function App() {
 
@@ -80,36 +81,7 @@ function App() {
           onClose={closeAllPopups}
         />
 
-        <PopupWithForm
-          name="profile-edit"
-          title="Редактировать профиль"
-          children={
-            <>
-              <input
-                className="popup__input popup__input_type_username"
-                type="text"
-                name="userName"
-                placeholder="Ваше имя"
-                id="username-input"
-                minLength="2"
-                maxLength="40"
-                required />
-              <span className="popup__input-error" id="username-input-error"></span>
-              <input
-                className="popup__input popup__input_type_userbio"
-                type="text"
-                name="userBio"
-                placeholder="Чем вы занимаетесь"
-                id="userbio-input"
-                minLength="2"
-                maxLength="200"
-                required />
-              <span className="popup__input-error" id="userbio-input-error"></span>
-            </>
-          }
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-        />
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
         
         <PopupWithForm 
           name="card-add"
