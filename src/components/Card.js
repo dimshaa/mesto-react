@@ -12,7 +12,11 @@ function Card(props) {
   const cardLikeBtnClassName = (`card__like-btn ${isLiked && 'card__like-btn_active'}`)
 
   function handleClick() {
-    props.onCardClick(props.cardData)
+    props.onCardClick(props.cardData);
+  }
+
+  function handleLikeClick() {
+    props.onCardLike(props.cardData);
   }
 
   return (
@@ -21,7 +25,7 @@ function Card(props) {
       <div className="card__info">
         <h2 className="card__caption">{props.cardData.name}</h2>
         <div className="card__like-wrapper">
-          <button className={cardLikeBtnClassName} type="button" aria-label="мне нравится"></button>
+          <button className={cardLikeBtnClassName} onClick={handleLikeClick} type="button" aria-label="мне нравится"></button>
           <p className="card__like-counter">{props.cardData.likes.length}</p>
         </div>
       </div>
