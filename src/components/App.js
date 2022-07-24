@@ -15,6 +15,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
@@ -22,6 +23,14 @@ function App() {
       .then(res => {
       setCurrentUser(res);
     })
+      .catch(err => console.log(err))
+  }, []);
+
+  useEffect(() => {
+    api.getInitialCards()
+      .then(cardsData => {
+        setCards(cardsData);
+      })
       .catch(err => console.log(err))
   }, []);
 
@@ -66,16 +75,38 @@ function App() {
       .catch(err => console.log(err));
   }
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    api.likeCard(card._id, isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch(err => console.log(err));
+  };
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+    .then(() => {
+      setCards((state) => state.filter((c) => c._id !== card._id));
+    })
+    .catch(err => console.log(err));
+  };
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header />
 
         <Main 
+          cards={cards}
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
 
         <Footer />
