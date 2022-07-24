@@ -34,37 +34,34 @@ function EditProfilePopup(props) {
       name="profile-edit"
       title="Редактировать профиль"
       onSubmit={handleSubmit}
-      children={
-        <>
-          <input
-            value={name || ""}
-            onChange={handleNameChange}
-            className="popup__input popup__input_type_username"
-            type="text"
-            name="userName"
-            placeholder="Ваше имя"
-            id="username-input"
-            minLength="2"
-            maxLength="40"
-            required />
-          <span className="popup__input-error" id="username-input-error"></span>
-          <input
-            value={description || ""}
-            onChange={handleDescriptionChange}
-            className="popup__input popup__input_type_userbio"
-            type="text"
-            name="userBio"
-            placeholder="Чем вы занимаетесь"
-            id="userbio-input"
-            minLength="2"
-            maxLength="200"
-            required />
-          <span className="popup__input-error" id="userbio-input-error"></span>
-        </>
-      }
       isOpen={props.isOpen}
       onClose={props.onClose}
-    />
+    >
+      <input
+        value={name || ""}
+        onChange={handleNameChange}
+        className="popup__input popup__input_type_username"
+        type="text"
+        name="userName"
+        placeholder="Ваше имя"
+        id="username-input"
+        minLength="2"
+        maxLength="40"
+        required />
+      <span className="popup__input-error" id="username-input-error"></span>
+      <input
+        value={description || ""}
+        onChange={handleDescriptionChange}
+        className="popup__input popup__input_type_userbio"
+        type="text"
+        name="userBio"
+        placeholder="Чем вы занимаетесь"
+        id="userbio-input"
+        minLength="2"
+        maxLength="200"
+        required />
+      <span className="popup__input-error" id="userbio-input-error"></span>
+    </PopupWithForm>
   );
 }
 
