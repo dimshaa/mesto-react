@@ -37,7 +37,7 @@ function EditProfilePopup(props) {
       children={
         <>
           <input
-            value={name}
+            value={name || ""}
             onChange={handleNameChange}
             className="popup__input popup__input_type_username"
             type="text"
@@ -49,7 +49,7 @@ function EditProfilePopup(props) {
             required />
           <span className="popup__input-error" id="username-input-error"></span>
           <input
-            value={description}
+            value={description || ""}
             onChange={handleDescriptionChange}
             className="popup__input popup__input_type_userbio"
             type="text"
